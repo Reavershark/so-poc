@@ -1,10 +1,26 @@
-import { AppBar, Button, Drawer, IconButton, Toolbar, Typography } from "@material-ui/core";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { makeStyles } from "@material-ui/core/styles";
-import { Menu as MenuIcon } from "@material-ui/icons";
 import React from "react";
 import ReactDOM from "react-dom";
-import Sidebar from './components/Sidebar';
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+
+import {
+  AppBar,
+  CssBaseline,
+  Button,
+  Drawer,
+  IconButton,
+  Toolbar,
+  Typography,
+  Container
+} from "@material-ui/core";
+import { Menu as MenuIcon } from "@material-ui/icons";
+
+import { makeStyles } from "@material-ui/core/styles";
+import Sidebar from "./components/Sidebar";
+
+// Pages
+import Home from "./pages/Home";
+import Terminal from "./pages/Terminal";
+import Error from "./pages/Error";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -18,7 +34,7 @@ function App() {
   const [drawerState, setDrawerState] = React.useState(false);
 
   return (
-    <React.Fragment>
+    <BrowserRouter>
       <CssBaseline />
 
       <AppBar position="static">
@@ -52,8 +68,15 @@ function App() {
         </div>
       </Drawer>
 
-      <h1>Welcome</h1>
-    </React.Fragment>
+      <Container>
+        <Switch>
+          <Route exact path="/" render={() => <Redirect to="/home" />} />
+          <Route path="/home" component={Home} />
+          <Route path="/terminal" component={Terminal} />
+          <Route component={Error} />
+        </Switch>
+      </Container>
+    </BrowserRouter>
   );
 }
 
