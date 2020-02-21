@@ -1,0 +1,40 @@
+version: "3.3"
+
+services:
+  nginx:
+    build: nginx
+    ports:
+      - "80:80"
+    networks:
+      internal:
+        ipv4_address: 192.168.1.10
+  #react:
+  #  build: react
+  #  ports:
+  #    - "80:80"
+  #  networks:
+  #    internal:
+  #      ipv4_address: 192.168.1.20
+  gotty-host:
+    build: gotty
+    command: gotty -w -a 192.168.1.30 ssh gns3@192.168.1.1
+    ports:
+      - "8001:8080"
+    networks:
+      internal:
+        ipv4_address: 192.168.1.30
+  gotty-so-master:
+    build: gotty
+    command: gotty -w -a 192.168.1.31 ssh -J gns3@192.168.1.1 so-user@192.168.0.11
+    ports:
+      - "8011:8080"
+    networks:
+      internal:
+        ipv4_address: 192.168.1.31
+
+networks:
+  internal:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.1.0/24
