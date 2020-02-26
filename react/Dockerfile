@@ -9,4 +9,4 @@ FROM node:13
 RUN yarn global add serve
 WORKDIR /build
 COPY --from=builder /app/build /build
-CMD [ "serve", "-l", "tcp://0.0.0.0:80" ]
+CMD [ "serve", "-s", "-l", "tcp://0.0.0.0:80" ]
