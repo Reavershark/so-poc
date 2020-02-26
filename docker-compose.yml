@@ -7,12 +7,10 @@ services:
       - "80:80"
     networks:
       - so-manager
-  #react:
-  #  build: react
-  #  ports:
-  #    - "80:80"
-  #  networks:
-  #    - so-manager
+  react:
+    build: react
+    networks:
+      - so-manager
   gotty-host:
     build: gotty
     command: gotty -p 80 -w ssh 192.168.100.1
