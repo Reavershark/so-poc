@@ -15,16 +15,12 @@ services:
   #    - so-manager
   gotty-host:
     build: gotty
-    command: gotty -w -a 192.168.1.30 ssh gns3@192.168.1.1
-    ports:
-      - "8001:8080"
+    command: gotty -p 80 -w ssh 192.168.100.1
     networks:
       - so-manager
   gotty-so-master:
     build: gotty
-    command: gotty -w -a 192.168.1.31 ssh -J gns3@192.168.1.1 so-user@192.168.0.11
-    ports:
-      - "8011:8080"
+    command: gotty -p 80 -w ssh -J 192.168.100.1 so-user@192.168.101.2
     networks:
       - so-manager
 
