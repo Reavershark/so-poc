@@ -7,7 +7,7 @@ function Home() {
     <React.Fragment>
       <h1>Welcome</h1>
       <Iframe
-        url="https://127.0.0.1:4430/app/kibana"
+        url="/so/app/kibana"
         width="100%"
         height="600px"
         id="myId"

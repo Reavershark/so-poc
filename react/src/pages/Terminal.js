@@ -37,14 +37,14 @@ function Terminal() {
       <Grid container spacing={3}>
         <Grid item xs={6}>
           <Paper className={classes.tile}>
-            <Typography variant="h6">so-master</Typography>
-            <TerminalFrame url="http://127.0.0.1:9011" />
+            <Typography variant="h6">security-onion</Typography>
+            <TerminalFrame url="/gotty-so" />
           </Paper>
         </Grid>
         <Grid item xs={6}>
           <Paper className={classes.tile}>
-            <Typography variant="h6">gns3vm</Typography>
-            <TerminalFrame url="http://127.0.0.1:9012" />
+            <Typography variant="h6">hypervisor</Typography>
+            <TerminalFrame url="/gotty-host" />
           </Paper>
         </Grid>
       </Grid>
