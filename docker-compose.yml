@@ -19,9 +19,6 @@ services:
     ports:
       - "8001:8080"
     networks:
-      internal:
-        ipv4_address: 192.168.1.30
-    networks:
       - so-manager
   gotty-so-master:
     build: gotty
