@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 function TerminalFrame(props) {
   return (
     <Iframe
-      url={props.url}
+      url={"https://sopoc.duckdns.org" + props.url}
       width="100%"
       height="400px"
       id="myId"

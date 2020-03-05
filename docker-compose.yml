@@ -1,10 +1,34 @@
 version: "3.7"
 
 services:
-  nginx:
-    build: nginx
+  # Public service
+  https-portal:
+    image: steveltn/https-portal:1
     ports:
-      - "127.0.0.1:80:80"
+      - '80:80'
+      - '443:443'
+    links:
+      - so-vm-proxy
+      - so-manager-proxy
+    restart: always
+    environment:
+      DOMAINS: '
+        jonas:L0gMeIn@sopoc.duckdns.org -> http://so-manager-proxy,
+        so-sopoc.duckdns.org -> http://so-vm-proxy
+      '
+      WEBSOCKET: "true"
+    networks:
+      - so-manager
+
+  # Security Onion
+  so-vm-proxy:
+    build: so-vm-proxy
+    networks:
+      - so-manager
+
+  # Management web application
+  so-manager-proxy:
+    build: so-manager-proxy
     networks:
       - so-manager
   react:

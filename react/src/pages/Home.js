@@ -7,7 +7,7 @@ function Home() {
   return (
     <React.Fragment>
       <h1>Welcome</h1>
-      <Link href="http://security-onion:8080/app/kibana">
+      <Link href="https://so-sopoc.duckdns.org/app/kibana">
         Kibana
       </Link>
       <Iframe
