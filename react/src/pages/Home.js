@@ -1,11 +1,15 @@
 import React from "react";
 
 import Iframe from "react-iframe";
+import { Link } from '@material-ui/core';
 
 function Home() {
   return (
     <React.Fragment>
       <h1>Welcome</h1>
+      <Link href="http://security-onion:8080/app/kibana">
+        Kibana
+      </Link>
       <Iframe
         url="/so/app/kibana"
         width="100%"
