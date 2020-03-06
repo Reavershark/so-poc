@@ -7,47 +7,23 @@ services:
     ports:
       - '80:80'
       - '443:443'
-    links:
+    depends_on:
       - so-vm-proxy
       - so-manager-proxy
+      - thehive-proxy-thehive
+      - thehive-proxy-cortex
     restart: always
     environment:
+      WEBSOCKET: 'true'
       DOMAINS: '
         jonas:L0gMeIn@sopoc.duckdns.org -> http://so-manager-proxy,
-        so-sopoc.duckdns.org -> http://so-vm-proxy
+        so-sopoc.duckdns.org -> http://so-vm-proxy,
+        thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
+        cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex
       '
-      WEBSOCKET: "true"
-    networks:
-      - so-manager
-
-  # Security Onion
-  so-vm-proxy:
-    build: so-vm-proxy
-    networks:
-      - so-manager
-
-  # Management web application
-  so-manager-proxy:
-    build: so-manager-proxy
-    networks:
-      - so-manager
-  react:
-    build: react
-    networks:
-      - so-manager
-  gotty-host:
-    build: gotty
-    command: gotty -p 80 -w ssh debian@192.168.100.1
-    networks:
-      - so-manager
-  gotty-so:
-    build: gotty
-    command: gotty -p 80 -w ssh -J debian@192.168.100.1 so-user@192.168.101.2
-    networks:
-      - so-manager
 
 networks:
-  so-manager:
+  default:
     ipam:
       driver: default
       config:

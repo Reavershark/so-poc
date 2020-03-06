@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  # Management web application
+  so-manager-proxy:
+    build: so-manager/so-manager-proxy
+    depends_on:
+      - so-manager-react
+  so-manager-react:
+    build: so-manager/react
+  so-manager-gotty-host:
+    build: so-manager/gotty
+    command: gotty -p 80 -w ssh debian@192.168.100.1
+  so-manager-gotty-so:
+    build: so-manager/gotty
+    command: gotty -p 80 -w ssh -J debian@192.168.100.1 so-user@192.168.101.2

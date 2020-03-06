@@ -1,0 +1,6 @@
+version: "3.7"
+
+services:
+  # Security Onion vm
+  so-vm-proxy:
+    build: so-vm/so-vm-proxy
