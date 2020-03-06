@@ -37,4 +37,4 @@ services:
       - thehive-cortex
     volumes:
       - ${PWD}/thehive/thehive/application.conf:/etc/thehive/application.conf
-    command: --es-hostname thehive-elasticsearch --cortex-hostname thehive-cortex --cortex-key cZiwmWoCMNVe+X/FQE4Qib9z22VJXxZk
+    command: --es-hostname thehive-elasticsearch --cortex-hostname thehive-cortex --cortex-key ${CORTEX_API_KEY}
