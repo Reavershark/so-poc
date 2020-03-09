@@ -12,6 +12,7 @@ services:
       - so-manager-proxy
       - thehive-proxy-thehive
       - thehive-proxy-cortex
+      - ntop-proxy
     restart: always
     environment:
       WEBSOCKET: 'true'
@@ -19,7 +20,8 @@ services:
         jonas:L0gMeIn@sopoc.duckdns.org -> http://so-manager-proxy,
         so-sopoc.duckdns.org -> http://so-vm-proxy,
         thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
-        cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex
+        cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex,
+        ntopng-sopoc.duckdns.org -> http://ntop-proxy
       '
 
 networks:
@@ -27,4 +29,4 @@ networks:
     ipam:
       driver: default
       config:
-        - subnet: 192.168.100.0/24
+        - subnet: ${DOCKER_SUBNET}

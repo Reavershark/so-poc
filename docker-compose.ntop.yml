@@ -1,0 +1,22 @@
+version: "3.7"
+
+# ntopng and redis run on host ports :5000 and :5001
+# proxy redirects to network default gateway
+
+services:
+  ntop-proxy:
+    build: ntop/ntop-proxy
+    environment:
+    - DOCKER_GATEWAY
+    depends_on:
+      - ntop-ntopng
+  ntop-redis:
+    image: "redis:alpine"
+    command: "--bind ${DOCKER_GATEWAY} --port 5001"
+    network_mode: "host"
+  ntop-ntopng:
+    build: ntop/ntopng
+    command: "ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 -i enp3s0f1"
+    network_mode: "host"
+    depends_on:
+      - ntop-redis

@@ -9,4 +9,5 @@ docker-compose \
   -f docker-compose.so-manager.yml \
   -f docker-compose.so-vm.yml \
   -f docker-compose.thehive.yml \
+  -f docker-compose.ntop.yml \
   $@ # Pass the arguments on this script to docker-compose
