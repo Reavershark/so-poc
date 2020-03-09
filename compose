@@ -4,7 +4,6 @@
 set -x
 
 docker-compose \
-  -p so-poc \
   -f docker-compose.yml \
   -f docker-compose.so-manager.yml \
   -f docker-compose.so-vm.yml \
