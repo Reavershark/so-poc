@@ -17,11 +17,11 @@ services:
     environment:
       WEBSOCKET: 'true'
       DOMAINS: '
-        jonas:L0gMeIn@sopoc.duckdns.org -> http://so-manager-proxy,
+        ${HTTP_BASIC_AUTH}@sopoc.duckdns.org -> http://so-manager-proxy,
         so-sopoc.duckdns.org -> http://so-vm-proxy,
         thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
         cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex,
-        ntopng-sopoc.duckdns.org -> http://ntop-proxy
+        ${HTTP_BASIC_AUTH}@ntopng-sopoc.duckdns.org -> http://ntop-proxy
       '
 
 networks:

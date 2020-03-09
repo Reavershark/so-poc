@@ -4,6 +4,7 @@ version: "3.7"
 # proxy redirects to network default gateway
 
 services:
+  # Ntopng traffic monitor
   ntop-proxy:
     build: ntop/ntop-proxy
     environment:
@@ -16,7 +17,7 @@ services:
     network_mode: "host"
   ntop-ntopng:
     build: ntop/ntopng
-    command: "ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 -i enp3s0f1"
+    command: "ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 --local-networks ${HOME_NET} -i ${CAPTURE_INTERFACE} --disable-login 1 -F1"
     network_mode: "host"
     depends_on:
       - ntop-redis
