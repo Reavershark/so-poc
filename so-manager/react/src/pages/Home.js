@@ -88,7 +88,7 @@ function Home() {
           <h2>{service.category}</h2>
           <Grid container spacing={1}>
             {service.items.map(item => (
-              <Card className={classes.card}>
+              <Card className={classes.card} elevation={3}>
                 <CardActionArea className={classes.actionArea} href={item.url}>
                   <CardContent>
                     <Typography align="center" variant="h6">
