@@ -21,7 +21,8 @@ services:
         so-sopoc.duckdns.org -> http://so-vm-proxy,
         thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
         cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex,
-        ${HTTP_BASIC_AUTH}@ntopng-sopoc.duckdns.org -> http://ntop-proxy
+        ${HTTP_BASIC_AUTH}@ntopng-sopoc.duckdns.org -> http://ntop-proxy,
+        ${HTTP_BASIC_AUTH}@netdata-sopoc.duckdns.org -> http://netdata-proxy
       '
 
 networks:
