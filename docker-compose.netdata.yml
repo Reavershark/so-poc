@@ -7,8 +7,8 @@ services:
     depends_on:
     - netdata-netdata
   netdata-netdata:
-    image: netdata/netdata
-    hostname: sopoc.duckdns.org
+    build: netdata/netdata
+    hostname: netdata-sopoc.duckdns.org
     cap_add:
       - SYS_PTRACE
     security_opt:

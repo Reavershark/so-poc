@@ -1,7 +1,14 @@
 server {
   listen 80;
   server_name ntop-proxy;
+
   location / {
     proxy_pass http://${DOCKER_GATEWAY}:5000;
+  }
+
+  # Nginx status page
+  location /stub_status {
+    stub_status;
+    access_log off;
   }
 }
