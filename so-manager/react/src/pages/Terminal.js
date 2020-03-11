@@ -1,11 +1,7 @@
 import React from "react";
-import { Grid, Paper, Typography, Box } from "@material-ui/core";
+import { Grid, Paper, Typography } from "@material-ui/core";
 import Iframe from "react-iframe";
 import { makeStyles } from "@material-ui/core/styles";
-
-const gottys = {
-  so_master: ""
-};
 
 const useStyles = makeStyles(theme => ({
   tile: {

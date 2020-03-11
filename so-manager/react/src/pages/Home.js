@@ -1,16 +1,9 @@
 import React from "react";
 
-import {
-  Typography,
-  Link,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  CardActionArea,
-  Grid
-} from "@material-ui/core";
+import { Typography, Card, CardContent, CardActionArea, Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
+import { services } from "../data";
 
 const useStyles = makeStyles({
   card: {
@@ -23,88 +16,35 @@ const useStyles = makeStyles({
   }
 });
 
-const services = [
-  {
-    category: "Security Onion",
-    items: [
-      {
-        name: "Security Onion",
-        description: "Security Onion homepage",
-        url: "https://so-sopoc.duckdns.org"
-      },
-      {
-        name: "Kibana",
-        description: "NIDS, HIDS and Zeek log visualization",
-        url: "https://so-sopoc.duckdns.org/app/kibana"
-      },
-      {
-        name: "Squert",
-        description: "IDS alert viewer",
-        url: "https://so-sopoc.duckdns.org/squert/"
-      },
-      {
-        name: "CyberChef",
-        description: "Cyber Swiss Army Knife",
-        url: "https://so-sopoc.duckdns.org/cyberchef/cyberchef.htm"
-      }
-    ]
-  },
-  {
-    category: "TheHive",
-    items: [
-      {
-        name: "TheHive",
-        description: "Security incident response platform",
-        url: "https://thehive-sopoc.duckdns.org"
-      },
-      {
-        name: "Cortex",
-        description: "Analysis and response engine used by TheHive",
-        url: "https://cortex-sopoc.duckdns.org"
-      }
-    ]
-  },
-  {
-    category: "System monitoring",
-    items: [
-      {
-        name: "Ntopng",
-        description: "Network traffic monitor",
-        url: "https://ntopng-sopoc.duckdns.org/"
-      },
-      {
-        name: "Netdata",
-        description: "System health monitor",
-        url: "https://netdata-sopoc.duckdns.org/"
-      }
-    ]
-  }
-];
-
-function Home() {
+function ServiceCard(props) {
   const classes = useStyles();
 
   return (
+    <Card className={classes.card} elevation={3}>
+      <CardActionArea className={classes.actionArea} href={props.item.url}>
+        <CardContent>
+          <Typography align="center" variant="h6">
+            {props.item.name}
+          </Typography>
+          <Typography align="center" variant="body2">
+            {props.item.description}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+
+function Home() {
+  return (
     <React.Fragment>
       <h1>Welcome</h1>
-
       {services.map(service => (
         <React.Fragment>
           <h2>{service.category}</h2>
           <Grid container spacing={1}>
             {service.items.map(item => (
-              <Card className={classes.card} elevation={3}>
-                <CardActionArea className={classes.actionArea} href={item.url}>
-                  <CardContent>
-                    <Typography align="center" variant="h6">
-                      {item.name}
-                    </Typography>
-                    <Typography align="center" variant="body2">
-                      {item.description}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-              </Card>
+              <ServiceCard item={item} />
             ))}
           </Grid>
         </React.Fragment>
