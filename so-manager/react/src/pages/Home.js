@@ -59,18 +59,23 @@ const services = [
       },
       {
         name: "Cortex",
-        description: "Analysis and response engine",
+        description: "Analysis and response engine used by TheHive",
         url: "https://cortex-sopoc.duckdns.org"
       }
     ]
   },
   {
-    category: "Ntop",
+    category: "System monitoring",
     items: [
       {
         name: "Ntopng",
-        description: "Complete traffic monitor",
+        description: "Network traffic monitor",
         url: "https://ntopng-sopoc.duckdns.org/"
+      },
+      {
+        name: "Netdata",
+        description: "System health monitor",
+        url: "https://netdata-sopoc.duckdns.org/"
       }
     ]
   }
