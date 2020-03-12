@@ -40,6 +40,16 @@ const services = [
     ]
   },
   {
+    category: "MISP",
+    items: [
+      {
+        name: "MISP",
+        description: "Threat Intelligence Platform",
+        url: "https://misp-sopoc.duckdns.org"
+      }
+    ]
+  },
+  {
     category: "System monitoring",
     items: [
       {
