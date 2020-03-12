@@ -38,7 +38,7 @@ function ServiceCard(props) {
 function Home() {
   return (
     <React.Fragment>
-      <h1>Welcome</h1>
+      <h1>Services</h1>
       {services.map(service => (
         <React.Fragment>
           <h2>{service.category}</h2>
