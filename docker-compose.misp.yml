@@ -1,0 +1,36 @@
+version: "3.7"
+
+# https://github.com/MISP/misp-docker/blob/master/docker-compose.yml
+
+services:
+  # Misp instance
+  misp-proxy:
+    build: misp/misp-proxy
+    depends_on:
+    - misp-web
+  misp-web:
+    build: misp/web
+    depends_on:
+      - misp-db
+    restart: unless-stopped
+    volumes:
+      - /dev/urandom:/dev/random
+    environment:
+      - MYSQL_HOST=misp-db
+      - MYSQL_DATABASE=misp
+      - MYSQL_USER=misp
+      - MYSQL_PASSWORD=misp
+      - MISP_ADMIN_EMAIL=${MISP_ADMIN_EMAIL}
+      - MISP_ADMIN_PASSPHRASE=${MISP_ADMIN_PASSPHRASE}
+      - MISP_BASEURL=${MISP_BASEURL}
+      - POSTFIX_RELAY_HOST=
+      - TIMEZONE=Europe/Brussels
+
+  misp-db:
+    image: mysql/mysql-server:5.7
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=misp
+      - MYSQL_USER=misp
+      - MYSQL_PASSWORD=misp
+      - MYSQL_ROOT_PASSWORD=misp

@@ -13,6 +13,8 @@ services:
       - thehive-proxy-thehive
       - thehive-proxy-cortex
       - ntop-proxy
+      - netdata-proxy
+      - misp-proxy
     restart: always
     environment:
       WEBSOCKET: 'true'
@@ -22,7 +24,8 @@ services:
         thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
         cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex,
         ${HTTP_BASIC_AUTH}@ntopng-sopoc.duckdns.org -> http://ntop-proxy,
-        ${HTTP_BASIC_AUTH}@netdata-sopoc.duckdns.org -> http://netdata-proxy
+        ${HTTP_BASIC_AUTH}@netdata-sopoc.duckdns.org -> http://netdata-proxy,
+        misp-sopoc.duckdns.org -> http://misp-proxy
       '
 
 networks:

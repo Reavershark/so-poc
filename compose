@@ -10,4 +10,5 @@ docker-compose \
   -f docker-compose.thehive.yml \
   -f docker-compose.ntop.yml \
   -f docker-compose.netdata.yml \
+  -f docker-compose.misp.yml \
   $@ # Pass the arguments on this script to docker-compose
