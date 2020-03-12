@@ -8,6 +8,7 @@ The following values will be generated while following the setup:
 - CORTEX_API_KEY
 
 ### Networking
+
 Optionally adjust `DOCKER_SUBNET` and `DOCKER_GATEWAY` if it overlaps with an external network.
 Since docker-compose doesn't allow setting the gateway of a network's IPAM manually, `DOCKER_GATEWAY` must be set to the first address in the subnet.
 
@@ -16,6 +17,15 @@ Since docker-compose doesn't allow setting the gateway of a network's IPAM manua
 Set the `HTTP_BASIC_AUTH` env to configure authentication for some web interfaces.
 
 The host device needs to be reachable over the internet to request https certificates.
+
+### MISP
+
+MISP needs to know the external hostname. T
+This is set in `MISP_BASEURL`, for example `misp-sopoc.duckdns.org`.
+
+Edit `MISP_ADMIN_EMAIL` and `MISP_ADMIN_PASSPHRASE`.
+Changing these values won't change the default login of `admin@admin.test` with password `admin`.
+See further configuration instructions below.
 
 ### Ntop
 
@@ -60,3 +70,45 @@ Special configuration is required for setting up TheHive.
 - Enable read/write for this user and enable alert creation.
 - Generate the api key for the user security-onion.
 - This is the api key used in ElastAlert rules with the hivealerter alert system.
+
+## 4. MISP
+
+### Misp instance
+
+Misp starts with a default login, despite setting the email and password in the `.env` file.
+- Open the MISP web interface
+- Login with email `admin@admin.test` and password `admin`.
+- Change password to the value of `MISP_ADMIN_PASSPHRASE`, set earlier in `.env`.
+- Open the "Edit my profile" page.
+- Change email to the value of `MISP_ADMIN_EMAIL`, set earlier in `.env`.
+- Go to the "My profile" page.
+- Copy the AuthKey, this is the api key used by securityonion-misp.
+
+### Security Onion
+
+Ssh into the Security Onion vm and clone the repository:
+```
+git clone https://github.com/weslambert/securityonion-misp
+```
+
+Apply a small patch and run the install script:
+```
+sed -i "s/is_ip() {/is_ip() {\nreturn 0/" securityonion-misp/so-misp-setup
+sudo securityonion-misp/so-misp-setup
+```
+Follow the installation instructions:
+- Enter the ip address and port of the MISP instance.
+  The ip address is the SO vm's gateway. The port is exposed by the misp-proxy container.
+  For example: `192.168.101.1:6000`
+- Enter http as protocol
+- Paste your api key and press enter, your input is hidden.
+- Type `YES` for configuring NIDS rules.
+- Type `YES` for configuring Zeek intel data.
+- Type `YES` to confirm.
+
+Finally update the ruleset:
+```
+sudo rule-update
+```
+
+NIDS rules are now synchronized daily with the MISP rule generator.

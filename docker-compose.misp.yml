@@ -8,6 +8,8 @@ services:
     build: misp/misp-proxy
     depends_on:
     - misp-web
+    ports:
+      - '192.168.101.1:6000:80'
   misp-web:
     build: misp/web
     depends_on:
