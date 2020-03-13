@@ -5,7 +5,7 @@ services:
   netdata-proxy:
     build: netdata/netdata-proxy
     depends_on:
-    - netdata-netdata
+      - netdata-netdata
   netdata-netdata:
     build: netdata/netdata
     hostname: netdata-sopoc.duckdns.org
@@ -14,15 +14,14 @@ services:
     security_opt:
       - apparmor:unconfined
     volumes:
-      - /etc/passwd:/host/etc/passwd:ro
-      - /etc/group:/host/etc/group:ro
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
+      - /:/host:ro
+      #- /etc/passwd:/host/etc/passwd:ro
+      #- /etc/group:/host/etc/group:ro
+      #- /etc/os-release:/host/etc/os-release:ro
+      #- /dev:/host/dev:ro
+      #- /proc:/host/proc:ro
+      #- /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/run/libvirt/libvirt-sock-ro:/var/run/libvirt/libvirt-sock-ro:ro
     environment:
-      - DOCKER_HOST=netdata-docker-socket-proxy:2375
-  netdata-docker-socket-proxy:
-    image: tecnativa/docker-socket-proxy
-    volumes:
-     - /var/run/docker.sock:/var/run/docker.sock:ro
-    environment:
-      - CONTAINERS=1
+      - DOCKER_USR=root
