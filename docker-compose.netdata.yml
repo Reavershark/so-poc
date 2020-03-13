@@ -1,26 +1,23 @@
 version: "3.7"
 
+# Netdata health monitoring
+
 services:
-  # Netdata health monitoring
   netdata-proxy:
     build: netdata/netdata-proxy
     depends_on:
       - netdata-netdata
   netdata-netdata:
     build: netdata/netdata
-    hostname: netdata-sopoc.duckdns.org
+    hostname: ${NETDATA_HOSTNAME}
+    extra_hosts:
+      - host.docker.internal:${DOCKER_GATEWAY}
     cap_add:
       - SYS_PTRACE
     security_opt:
       - apparmor:unconfined
     volumes:
       - /:/host:ro
-      #- /etc/passwd:/host/etc/passwd:ro
-      #- /etc/group:/host/etc/group:ro
-      #- /etc/os-release:/host/etc/os-release:ro
-      #- /dev:/host/dev:ro
-      #- /proc:/host/proc:ro
-      #- /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - /var/run/libvirt/libvirt-sock-ro:/var/run/libvirt/libvirt-sock-ro:ro
     environment:

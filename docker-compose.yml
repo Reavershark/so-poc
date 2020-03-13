@@ -5,8 +5,8 @@ services:
   https-portal:
     image: steveltn/https-portal:1
     ports:
-      - '80:80'
-      - '443:443'
+      - 80:80
+      - 443:443
     depends_on:
       - so-vm-proxy
       - so-manager-proxy
@@ -19,12 +19,12 @@ services:
     environment:
       WEBSOCKET: 'true'
       DOMAINS: '
-        ${HTTP_BASIC_AUTH}@sopoc.duckdns.org -> http://so-manager-proxy,
+        ${AUTH_USER}:${AUTH_PASS}@sopoc.duckdns.org -> http://so-manager-proxy,
         so-sopoc.duckdns.org -> http://so-vm-proxy,
         thehive-sopoc.duckdns.org -> http://thehive-proxy-thehive,
         cortex-sopoc.duckdns.org -> http://thehive-proxy-cortex,
-        ${HTTP_BASIC_AUTH}@ntopng-sopoc.duckdns.org -> http://ntop-proxy,
-        ${HTTP_BASIC_AUTH}@netdata-sopoc.duckdns.org -> http://netdata-proxy,
+        ${AUTH_USER}:${AUTH_PASS}@ntopng-sopoc.duckdns.org -> http://ntop-proxy,
+        ${AUTH_USER}:${AUTH_PASS}@netdata-sopoc.duckdns.org -> http://netdata-proxy,
         misp-sopoc.duckdns.org -> http://misp-proxy
       '
 

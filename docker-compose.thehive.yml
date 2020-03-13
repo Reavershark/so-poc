@@ -1,15 +1,29 @@
 version: "3.7"
 
+# TheHive
+
 services:
-  # TheHive
   thehive-proxy-thehive:
     build: thehive/thehive-proxy-thehive
     depends_on:
-    - thehive-cortex
+    - thehive-thehive
   thehive-proxy-cortex:
     build: thehive/thehive-proxy-cortex
     depends_on:
     - thehive-cortex
+  thehive-thehive:
+    image: thehiveproject/thehive:latest
+    depends_on:
+      - thehive-elasticsearch
+      - thehive-cortex
+    volumes:
+      - ${PWD}/thehive/thehive/application.conf:/etc/thehive/application.conf
+    command: --es-hostname thehive-elasticsearch --cortex-hostname thehive-cortex --cortex-key ${CORTEX_API_KEY}
+  thehive-cortex:
+    image: thehiveproject/cortex:latest
+    depends_on:
+      - thehive-elasticsearch
+    command: --es-hostname thehive-elasticsearch
   thehive-elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:5.6.0
     environment:
@@ -25,16 +39,3 @@ services:
       nofile:
         soft: 65536
         hard: 65536
-  thehive-cortex:
-    image: thehiveproject/cortex:latest
-    depends_on:
-      - thehive-elasticsearch
-    command: --es-hostname thehive-elasticsearch
-  thehive-thehive:
-    image: thehiveproject/thehive:latest
-    depends_on:
-      - thehive-elasticsearch
-      - thehive-cortex
-    volumes:
-      - ${PWD}/thehive/thehive/application.conf:/etc/thehive/application.conf
-    command: --es-hostname thehive-elasticsearch --cortex-hostname thehive-cortex --cortex-key ${CORTEX_API_KEY}

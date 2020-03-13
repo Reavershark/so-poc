@@ -1,23 +1,23 @@
 version: "3.7"
 
+# Ntopng traffic monitor
 # ntopng and redis run on host ports :5000 and :5001
 # proxy redirects to network default gateway
 
 services:
-  # Ntopng traffic monitor
   ntop-proxy:
     build: ntop/ntop-proxy
-    environment:
-    - DOCKER_GATEWAY
+    extra_hosts:
+      - host.docker.internal:${DOCKER_GATEWAY}
     depends_on:
       - ntop-ntopng
-  ntop-redis:
-    image: "redis:alpine"
-    command: "--bind ${DOCKER_GATEWAY} --port 5001"
-    network_mode: "host"
   ntop-ntopng:
     build: ntop/ntopng
-    command: "ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 --local-networks ${HOME_NET} -i ${CAPTURE_INTERFACE} --disable-login 1 -F1"
-    network_mode: "host"
+    command: ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 --local-networks ${HOME_NET} -i ${CAPTURE_INTERFACE} --disable-login 1 -F1
+    network_mode: host
     depends_on:
       - ntop-redis
+  ntop-redis:
+    image: redis:alpine
+    command: --bind ${DOCKER_GATEWAY} --port 5001
+    network_mode: host
