@@ -82,6 +82,9 @@ Some configuration is required to fully setup TheHive.
   - Enable read/write for this user and enable alert creation.
   - Generate the api key for the user security-onion.
   - This is the api key used in ElastAlert rules with the hivealerter alert system.
+- Open the "Admin" menu, go to the "Report templates" page.
+  - Download the zip https://dl.bintray.com/thehive-project/binary/report-templates.zip locally.
+  - Upload the zip with the "Import templates" dialog.
 
 ## 4. MISP
 
