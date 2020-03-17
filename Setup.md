@@ -69,7 +69,7 @@ Some configuration is required to fully setup TheHive.
     - Most analysers require an api key to use, but some are free.
     - There's no limit on how many can be active.
     - List of analysers that do not require configuration:
-      - Abuse Finder, CERTatPassiveDNS, Crt sh Transparency Logs, CyberCrime-Tracker, Cyberprotect ThreatScore, DShield lookup, EmlParser, FileInfo, Fortiguard URLCategory, GoogleDNS resolve, HIBP Query, MaxMind GeoIP, Mnemonic pDNS Public, Msg Parser, Robtex Forward PDNS Query, Urlscan io Search, Virusshare.
+      - Abuse Finder, Crt sh Transparency Logs, CyberCrime-Tracker, Cyberprotect ThreatScore, DShield lookup, EmlParser, FileInfo, Fortiguard URLCategory, GoogleDNS resolve, HIBP Query, MaxMind GeoIP, Mnemonic pDNS Public, Msg Parser, Robtex Forward PDNS Query, Urlscan io Search, Virusshare.
 
 
 ### TheHive
@@ -85,6 +85,18 @@ Some configuration is required to fully setup TheHive.
 - Open the "Admin" menu, go to the "Report templates" page.
   - Download the zip https://dl.bintray.com/thehive-project/binary/report-templates.zip locally.
   - Upload the zip with the "Import templates" dialog.
+
+### Security Onion
+
+Edit `/etc/elastalert/conf/elastalert_config.yaml`, at the bottom add:
+```
+# TheHive connection
+hive_connection:
+  hive_host: https://thehive-sopoc.example.com
+  hive_apikey: apikey
+```
+Using the correct url and the newly generated api key for the user security-onion.
+
 
 ## 4. MISP
 
