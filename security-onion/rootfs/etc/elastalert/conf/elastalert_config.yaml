@@ -1,0 +1,6 @@
+# Rest of config
+
+# TheHive connection
+hive_connection:
+  hive_host: https://thehive-sopoc.duckdns.org
+  hive_apikey: apikey

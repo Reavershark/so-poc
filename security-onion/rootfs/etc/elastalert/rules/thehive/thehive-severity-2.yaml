@@ -1,0 +1,33 @@
+# Elastalert rule to forward IDS alerts from Security Onion to a specified TheHive instance.
+
+name: TheHive - New NIDS Alert! (Medium severity)
+index: "*:logstash-ids*"
+type: any
+buffer_time:
+    minutes: 10
+allow_buffer_time_overlap: true
+
+# Map priority to severity
+
+filter:
+- term:
+    event_type: "snort"
+- term:
+    priority: 2
+
+alert: hivealerter
+
+hive_alert_config:
+  title: 'NIDS -- {match[alert]}'
+  type: 'external'
+  source: 'SecurityOnion'
+  description: 'Packet capture: https://so-sopoc.duckdns.org/capme/elastic.php?esid={match[_id]} -- Timestamp: {match[@timestamp]} -- Category: {match[category]} -- Classification {match[classification]} -- Message: {match[message]}'
+  severity: 2
+  tags: ['elastalert, SecurityOnion']
+  tlp: 3
+  status: 'New'
+  follow: True
+
+hive_observable_data_mapping:
+  - ip: '{match[source_ip]}'
+  - ip: '{match[destination_ip]}'
