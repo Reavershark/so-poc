@@ -2,5 +2,6 @@
 
 # TheHive connection
 hive_connection:
-  hive_host: https://thehive-sopoc.duckdns.org
+  hive_host: http://SO_GATEWAY
+  hive_port: 6001
   hive_apikey: apikey

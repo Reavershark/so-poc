@@ -7,6 +7,8 @@ services:
     build: thehive/thehive-proxy-thehive
     depends_on:
     - thehive-thehive
+    ports:
+      - ${SO_GATEWAY}:6001:80
   thehive-proxy-cortex:
     build: thehive/thehive-proxy-cortex
     depends_on:
