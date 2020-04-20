@@ -1,6 +1,6 @@
 import { Divider, List, ListItem, ListItemIcon, ListItemText, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { Home as HomeIcon, PersonalVideo as TerminalIcon } from "@material-ui/icons";
+import { Home as HomeIcon, Search as QueryIcon, PersonalVideo as TerminalIcon } from "@material-ui/icons";
 import React from "react";
 
 function Sidebar() {
@@ -16,6 +16,12 @@ function Sidebar() {
             <HomeIcon />
           </ListItemIcon>
           <ListItemText primary="Home" />
+        </ListItem>
+        <ListItem button component={Link} to="/query">
+          <ListItemIcon>
+            <QueryIcon />
+          </ListItemIcon>
+          <ListItemText primary="Query" />
         </ListItem>
         <ListItem button component={Link} to="/terminal">
           <ListItemIcon>

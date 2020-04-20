@@ -9,6 +9,7 @@ import Sidebar from "./components/Sidebar";
 
 // Pages
 import Home from "./pages/Home";
+import Query from "./pages/Query";
 import Terminal from "./pages/Terminal";
 import Error from "./pages/Error";
 
@@ -77,6 +78,7 @@ function App() {
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/home" />} />
             <Route path="/home" component={Home} />
+            <Route path="/query" component={Query} />
             <Route path="/terminal" component={Terminal} />
             <Route component={Error} />
           </Switch>
