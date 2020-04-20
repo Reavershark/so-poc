@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { TextField, Select, FormControl, InputLabel } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
+import { IPQuery, DNSQuery } from "./queries";
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -14,27 +16,6 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 120,
   },
 }));
-
-function IPQuery() {
-  const classes = useStyles();
-
-  function handleSubmit(event) {
-    event.preventDefault();
-  }
-
-  return (
-    <React.Fragment>
-      <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <h2>Single IP lookup</h2>
-        <TextField required label="IP address" variant="outlined" />
-      </form>
-    </React.Fragment>
-  );
-}
-
-function DNSQuery() {
-  return null;
-}
 
 function Query() {
   const classes = useStyles();
