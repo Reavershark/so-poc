@@ -13,7 +13,7 @@ services:
       - ntop-ntopng
   ntop-ntopng:
     build: ntop/ntopng
-    command: ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 --local-networks ${HOME_NET} -i ${CAPTURE_INTERFACE} --disable-login 1 -F1
+    command: ntopng --community -w ${DOCKER_GATEWAY}:5000 --redis ${DOCKER_GATEWAY}:5001 --local-networks ${HOME_NET} -i ${CAPTURE_INTERFACE} --ignore-vlans --disable-login 1 -F1
     network_mode: host
     depends_on:
       - ntop-redis
