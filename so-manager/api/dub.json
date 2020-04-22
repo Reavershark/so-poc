@@ -1,0 +1,13 @@
+{
+	"authors": [
+		"Jonas"
+	],
+	"dependencies": {
+		"vibe-d:web": "~>0.8.6"
+	},
+	"description": "Rest api for the so-manager webapp.",
+	"name": "so-manager-api",
+	"versions": [
+		"VibeDefaultMain"
+	]
+}

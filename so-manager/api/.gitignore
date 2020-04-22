@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/so-manager-api
+so-manager-api.so
+so-manager-api.dylib
+so-manager-api.dll
+so-manager-api.a
+so-manager-api.lib
+so-manager-api-test-*
+*.exe
+*.o
+*.obj
+*.lst
