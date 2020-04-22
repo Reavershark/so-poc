@@ -11,10 +11,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function kibanaIndicator(ip) {
-  return `https://so-sopoc.duckdns.org/app/kibana#/dashboard/68563ed0-34bf-11e7-9b32-bb903919ead9?_a=(query:(language:lucene,query:%22${ip}%22))`;
-}
-
 function isIP(input) {
   // From https://github.com/lukehaas/RegexHub
   const regex =
@@ -27,13 +23,29 @@ function IPQuery() {
   const classes = useStyles();
 
   var [parameters, setParameters] = useState({ ip: "" });
-  var [result, setResult] = useState({});
+  var [result, setResult] = useState({ show: false });
+
+  function query() {
+    // Show result section/title
+    setResult({
+      show: true,
+    });
+
+    // Instantly generate links
+    setResult((curr) => {
+      return {
+        ...curr,
+        links: {
+          kibanaIndicator: `https://so-sopoc.duckdns.org/app/kibana#/dashboard/68563ed0-34bf-11e7-9b32-bb903919ead9?_a=(query:(language:lucene,query:%22${parameters.ip}%22))`,
+          ntopHost: `https://ntopng-sopoc.duckdns.org/lua/host_details.lua?host=${parameters.ip}`,
+        },
+      };
+    });
+  }
 
   function handleSubmit(event) {
     if (isIP(parameters.ip)) {
-      var tempResult = {};
-      tempResult.kibanaIndicator = kibanaIndicator(parameters.ip);
-      setResult(tempResult);
+      query();
     } else {
       alert("Not a valid IPv4 address.");
     }
@@ -43,6 +55,7 @@ function IPQuery() {
 
   return (
     <React.Fragment>
+      {/* Query form */}
       <form
         className={classes.root}
         noValidate
@@ -61,13 +74,20 @@ function IPQuery() {
         />
       </form>
 
-      {result.kibanaIndicator && (
+      {/* Result */}
+      {result.show && <h2>Result</h2>}
+
+      {result.show && result.links.kibanaIndicator && (
         <div>
-          <a href={result.kibanaIndicator}>Kibana indicator dashboard</a>
+          <a href={result.links.kibanaIndicator}>Kibana indicator dashboard</a>
         </div>
       )}
-
-      {JSON.stringify(result)}
+      {result.show && result.links.ntopHost && (
+        <div>
+          <a href={result.links.ntopHost}>Ntop host details</a>
+        </div>
+      )}
+      {result.show && JSON.stringify(result)}
     </React.Fragment>
   );
 }
