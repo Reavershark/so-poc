@@ -27,7 +27,6 @@ class RestAPI : RestAPISpec
   {
     string result;
 
-    //--cookie user=admin; password=admin
     requestHTTP("http://ntop-proxy/lua/rest/get/host/data.lua?host=" ~ _ip, (scope req) {
     }, (scope res) {
       enforce(res.headers["content-type"] == "application/json");
