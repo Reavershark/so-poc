@@ -11,27 +11,27 @@ import vibe.stream.operations;
 import core.thread;
 
 import std.exception;
+import std.datetime;
+
+import apis.ntop;
 
 @safe:
 
 @path("/api/")
-interface RestAPISpec
+interface IRestAPI
 {
   @path("/host/:ip")
-  string getHost(string _ip);
+  Json getIP(string _ip);
 }
 
-class RestAPI : RestAPISpec
+class RestAPI : IRestAPI
 {
-  override string getHost(string _ip)
+  override Json getIP(string _ip)
   {
-    string result;
+    Json result = Json.emptyObject;
+    result["errors"] = Json.emptyArray;
 
-    requestHTTP("http://ntop-proxy/lua/rest/get/host/data.lua?host=" ~ _ip, (scope req) {
-    }, (scope res) {
-      enforce(res.headers["content-type"] == "application/json");
-      result = res.bodyReader.readAllUTF8();
-    });
+    queryNtopIP(_ip, result);
 
     return result;
   }
@@ -43,6 +43,6 @@ shared static this()
 
   auto router = new URLRouter;
   router.registerRestInterface(new RestAPI);
-  auto settings = new HTTPServerSettings("127.0.0.1:8080");
+  auto settings = new HTTPServerSettings("0.0.0.0:80");
   listenHTTP(settings, router);
 }

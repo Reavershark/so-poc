@@ -3,11 +3,15 @@
 		"Jonas"
 	],
 	"dependencies": {
-		"vibe-d:web": "~>0.8.6"
+		"vibe-d:web": "~>0.8.6",
+		"vibe-d:tls": "~>0.8.6"
 	},
 	"description": "Rest api for the so-manager webapp.",
 	"name": "so-manager-api",
 	"targetType": "executable",
+	"subConfigurations": {
+		"vibe-d:tls": "openssl-1.1"
+	},
 	"versions": [
 		"VibeDefaultMain"
 	]

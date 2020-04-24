@@ -9,6 +9,8 @@ services:
       - so-manager-react
   so-manager-react:
     build: so-manager/react
+  so-manager-api:
+    build: so-manager/api
   so-manager-gotty-host:
     build: so-manager/gotty
     command: gotty -p 80 -w ssh debian@${DOCKER_GATEWAY}
