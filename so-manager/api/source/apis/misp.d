@@ -46,8 +46,8 @@ void queryMisp(string value, ref Json result)
     return;
   }
 
-  response["mispMatches"] = attributes.length;
-  response["mispEvents"] = attributes.get!(Json[])
+  result["mispMatches"] = attributes.length;
+  result["mispEvents"] = attributes.get!(Json[])
     .map!(a => a["Event"]["uuid"])
     .uniq
     .array;
