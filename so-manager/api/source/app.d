@@ -14,6 +14,7 @@ import std.exception;
 import std.datetime;
 
 import apis.ntop;
+import apis.misp;
 
 @safe:
 
@@ -32,6 +33,7 @@ class RestAPI : IRestAPI
     result["errors"] = Json.emptyArray;
 
     queryNtopIP(_ip, result);
+    queryMisp(_ip, result);
 
     return result;
   }

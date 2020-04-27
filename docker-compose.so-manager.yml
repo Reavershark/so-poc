@@ -11,6 +11,8 @@ services:
     build: so-manager/react
   so-manager-api:
     build: so-manager/api
+    environment:
+      - MISP_API_KEY=${MISP_API_KEY}
   so-manager-gotty-host:
     build: so-manager/gotty
     command: gotty -p 80 -w ssh debian@${DOCKER_GATEWAY}

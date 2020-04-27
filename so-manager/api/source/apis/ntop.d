@@ -1,6 +1,5 @@
 module apis.ntop;
 
-//import std.exception;
 import std.datetime : SysTime;
 
 import vibe.data.json;

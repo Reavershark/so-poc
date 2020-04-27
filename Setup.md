@@ -27,7 +27,7 @@ The host device needs to be reachable over the internet to acquire https certifi
 
 ### MISP
 
-MISP needs to know the external hostname. T
+MISP needs to know the external hostname.
 This is set in `MISP_HOSTNAME`, for example `misp-sopoc.duckdns.org`.
 
 ### Ntop
@@ -109,7 +109,8 @@ Misp starts with a default login:
 - Open the "Edit my profile" page.
 - Change email to "`AUTH_USER`@`MISP_HOSTNAME`", both set earlier in `.env`.
 - Go to the "My profile" page.
-- Copy the AuthKey, this is the api key used by securityonion-misp.
+- Copy the AuthKey, change the `MISP_API_KEY` in `.env` to this key.
+- This is also the api key used by securityonion-misp.
 
 ### Security Onion
 
