@@ -41,6 +41,20 @@ function IPQuery() {
         },
       };
     });
+
+    // Query api and add to result
+    fetch(`/api/host/${parameters.ip}`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((body) => {
+        setResult((curr) => {
+          return {
+            ...curr,
+            data: body
+          }
+        })
+      });
   }
 
   function handleSubmit(event) {
