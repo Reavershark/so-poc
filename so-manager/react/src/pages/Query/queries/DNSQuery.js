@@ -1,5 +1,7 @@
+import React from "react";
+
 function DNSQuery() {
-  return null;
+  return <h2>Single DNS lookup - Not yet implemented</h2>;
 }
 
 export default DNSQuery;

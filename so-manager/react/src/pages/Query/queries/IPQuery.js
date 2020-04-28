@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 
-import { TextField, Select, FormControl, InputLabel } from "@material-ui/core";
+import {
+  TextField,
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  Grid,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -9,14 +16,61 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  card: {
+    minWidth: 200,
+    margin: 10,
+    width: "fit-content",
+  },
+  actionArea: {
+    height: "100%",
+    width: "100%",
+  },
 }));
 
 function isIP(input) {
-  // From https://github.com/lukehaas/RegexHub
+  // From https://www.oreilly.com/library/view/regular-expressions-cookbook/9780596802837/ch07s16.html
   const regex =
-    "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
+    "^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
   return RegExp(regex).test(input);
+}
+
+function DataCard(props) {
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.card} elevation={3}>
+      <CardContent>
+        <Typography align="center" variant="h6">
+          {props.name}
+        </Typography>
+        <Typography align="center" variant="body2">
+          {props.data}
+        </Typography>
+      </CardContent>
+    </Card>
+  );
+}
+
+function LinkCard(props) {
+  const classes = useStyles();
+
+  return (
+    <Card className={classes.card} elevation={3}>
+      <CardActionArea className={classes.actionArea} href={props.link}>
+        <CardContent>
+          <Typography align="center" variant="h6">
+            {props.name}
+          </Typography>
+          {props.data && (
+            <Typography align="center" variant="body2">
+              {props.data}
+            </Typography>
+          )}
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
 }
 
 function IPQuery() {
@@ -51,9 +105,9 @@ function IPQuery() {
         setResult((curr) => {
           return {
             ...curr,
-            data: body
-          }
-        })
+            data: body,
+          };
+        });
       });
   }
 
@@ -91,17 +145,69 @@ function IPQuery() {
       {/* Result */}
       {result.show && <h2>Result</h2>}
 
-      {result.show && result.links.kibanaIndicator && (
-        <div>
-          <a href={result.links.kibanaIndicator}>Kibana indicator dashboard</a>
-        </div>
+      {result.show && result.links && <h3>Links</h3>}
+      <Grid container spacing={1}>
+        {result.show && result.links && result.links.kibanaIndicator && (
+          <LinkCard
+            name="Kibana indicator"
+            link={result.links.kibanaIndicator}
+          />
+        )}
+
+        {result.show && result.links && result.links.ntopHost && (
+          <LinkCard name="Ntop host details" link={result.links.ntopHost} />
+        )}
+      </Grid>
+
+      {result.show && result.data && <h3>Data</h3>}
+
+      <Grid container spacing={1}>
+        {result.show && result.data && result.data.firstSeen && (
+          <DataCard name="First seen by ntop" data={result.data.firstSeen} />
+        )}
+
+        {result.show && result.data && result.data.lastSeen && (
+          <DataCard name="Last seen by ntop" data={result.data.lastSeen} />
+        )}
+
+        {result.show && result.data && result.data.mispMatches && (
+          <DataCard
+            name="Attribute search matches in MISP"
+            data={result.data.mispMatches}
+          />
+        )}
+
+        {result.show &&
+          result.data &&
+          result.data.mispEvents &&
+          result.data.mispEvents.map((event) => {
+            return (
+              <LinkCard
+                name="Misp event"
+                data={event}
+                link={`https://misp-sopoc.duckdns.org/events/view/${event}`}
+              />
+            );
+          })}
+
+        {result.show &&
+          result.data &&
+          result.data.errors &&
+          result.data.errors.map((err) => {
+            return <DataCard name="Error" data={err} />;
+          })}
+
+        {result.show && result.data && result.data.statusMessage && (
+          <DataCard name="Fetch error" value={result.data.statusMessage} />
+        )}
+      </Grid>
+
+      {result.show && (
+        <React.Fragment>
+          <h3>JSON</h3>
+          <xmp>{JSON.stringify(result, null, 2)}</xmp>
+        </React.Fragment>
       )}
-      {result.show && result.links.ntopHost && (
-        <div>
-          <a href={result.links.ntopHost}>Ntop host details</a>
-        </div>
-      )}
-      {result.show && JSON.stringify(result)}
     </React.Fragment>
   );
 }
