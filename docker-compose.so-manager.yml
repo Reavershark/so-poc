@@ -7,6 +7,7 @@ services:
     build: so-manager/so-manager-proxy
     depends_on:
       - so-manager-react
+      - so-manager-api
   so-manager-react:
     build: so-manager/react
   so-manager-api:
