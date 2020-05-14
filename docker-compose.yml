@@ -27,6 +27,7 @@ services:
         ${AUTH_USER}:${AUTH_PASS}@netdata-sopoc.duckdns.org -> http://netdata-proxy,
         misp-sopoc.duckdns.org -> http://misp-proxy
       '
+      STAGE: 'production'
 
 networks:
   default:
